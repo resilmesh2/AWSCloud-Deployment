@@ -483,25 +483,28 @@ Ubuntu uses `systemd-resolved` which listens on the local loopback address `127.
 You must configure the Docker daemon to use public DNS servers.
 
 1.  Open (or create) the Docker daemon configuration file:
-    ```bash
-    sudo nano /etc/docker/daemon.json
-    ```
+
+  ```bash
+  sudo nano /etc/docker/daemon.json
+  ```
 
 2.  Add the `dns` key with public DNS servers (e.g., Google DNS).
     * **If the file is new/empty:**
-        ```json
-        {
-          "dns": ["8.8.8.8", "8.8.4.4"]
-        }
-        ```
+
+    ```json
+    {
+      "dns": ["8.8.8.8", "8.8.4.4"]
+    }
+    ```
     * **If the file already exists:** Add the line inside the existing braces, ensuring valid JSON syntax (watch the commas).
 
 3.  Save and exit (`Ctrl+O`, `Enter`, `Ctrl+X`).
 
 4.  Restart the Docker service:
-    ```bash
-    sudo systemctl restart docker
-    ```
+
+  ```bash
+  sudo systemctl restart docker
+  ```
 ---
 
 ## Support

@@ -487,16 +487,13 @@ You must configure the Docker daemon to use public DNS servers.
 sudo nano /etc/docker/daemon.json
 ```
 
-- Add the `dns` key with public DNS servers (e.g., Google DNS).
-* **If the file is new/empty:**
+- Add the `dns` key with public DNS servers (e.g., Google DNS). **If the file is new/empty:**
 ```json
 {
   "dns": ["8.8.8.8", "8.8.4.4"]
 }
 ```
-* **If the file already exists:** Add the line inside the existing braces, ensuring valid JSON syntax (watch the commas).
-
-- Save and exit (`Ctrl+O`, `Enter`, `Ctrl+X`).
+**If the file already exists:** Add the line inside the existing braces, ensuring valid JSON syntax (watch the commas). Save and exit (`Ctrl+O`, `Enter`, `Ctrl+X`).
 
 - Restart the Docker service:
 ```bash

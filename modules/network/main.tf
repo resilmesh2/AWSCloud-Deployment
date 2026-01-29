@@ -71,7 +71,7 @@ locals {
 
 resource "aws_security_group" "instance_per_ip" {
     for_each    = toset(var.my_ips)
-    name        = "sec-instance-${var.tags.Project}-${var.tags.Environment}-${trimsuffix(each.key, "/32")}"
+    name        = "sg-${var.tags.Project}-${var.tags.Environment}-${trimsuffix(each.key, "/32")}"
     description = "EC2 access for all services, restricted only to IP: ${each.key}"
     vpc_id      = aws_vpc.this.id
 
@@ -96,5 +96,7 @@ resource "aws_security_group" "instance_per_ip" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 
-    tags = merge(var.tags, { Name = "sg-instance-access-from-${trimsuffix(each.key, "/32")}" })
+    tags = merge(var.tags, { 
+        Name = "sg-${var.tags.Project}-${var.tags.Environment}-${trimsuffix(each.key, "/32")}" 
+    })
 }

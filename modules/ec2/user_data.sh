@@ -66,15 +66,10 @@ chmod 600 /home/ubuntu/.ssh/config
 chown ubuntu:ubuntu /home/ubuntu/.ssh/config
 
 ##########################################################################
-# Clone private repository with submodules (using GitHub token from SSM)
+# Clone private repository with submodules
 ##########################################################################
 
-echo "=== Cloning Docker Compose repository with GitHub token ==="
-
-# Create .netrc in the Ubuntu user's home directory
-sudo -u ubuntu -H bash -c "printf 'machine github.com\n login token\n password ${github_token}\n' > /home/ubuntu/.netrc"
-chmod 600 /home/ubuntu/.netrc
-chown ubuntu:ubuntu /home/ubuntu/.netrc
+echo "=== Cloning Docker Compose repository ==="
 
 # Clone repo with submodules as ubuntu
 sudo -u ubuntu -H bash -c "

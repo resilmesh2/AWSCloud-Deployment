@@ -34,10 +34,6 @@ variable "client_public_ssh_keys" {
     type        = list(string)
     description = "Client SSH public keys for instance access."
 }
-variable "github_token" {
-    type        = string
-    description = "GitHub token for accessing private repositories."
-}
 variable "my_ips" {
     type = list(string)
     description = "IPs allowed to access EC2 or view the ports exposed by services."

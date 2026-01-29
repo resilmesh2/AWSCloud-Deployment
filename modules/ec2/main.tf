@@ -11,8 +11,7 @@ resource "aws_instance" "this" {
     user_data = templatefile(
         "${path.module}/user_data.sh",
         {
-            client_public_ssh_keys = var.client_public_ssh_keys,
-            github_token = var.github_token
+            client_public_ssh_keys = var.client_public_ssh_keys
         }
     )
     tags = merge(var.tags, { Name = "ec2-${var.tags.Project}-${var.tags.Environment}" })

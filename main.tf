@@ -13,7 +13,6 @@ module "iam" {
 module "ec2" {
     source                = "./modules/ec2"
     client_public_ssh_keys= var.client_public_ssh_keys
-    github_token          = var.github_token
     subnet_id             = module.network.public_subnet_id
     security_group_ids    = module.network.security_group_ids
     iam_instance_profile  = module.iam.instance_profile

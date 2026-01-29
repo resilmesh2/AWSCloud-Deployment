@@ -31,7 +31,7 @@ It deploys networking, IAM, and a single EC2 instance ready to run containers (D
   - Disables SSH password authentication and root login
   - Installs Docker Engine + Docker Compose v2 plugin
   - Adds the provided client public SSH keys to `ubuntu`’s `authorized_keys`
-  - Clones `resilmesh2/Docker-Compose` with submodules using a GitHub token
+  - Clones `resilmesh2/Docker-Compose`
 
 ---
 
@@ -64,15 +64,15 @@ flowchart LR
 └── modules/
     ├── network/
     │   ├── main.tf
-    │   ├── variables.tf
+    │   ├── vars.tf
     │   └── outputs.tf
     ├── iam/
     │   ├── main.tf
-    │   ├── variables.tf
+    │   ├── vars.tf
     │   └── outputs.tf
     └── ec2/
         ├── main.tf
-        ├── variables.tf
+        ├── vars.tf
         ├── outputs.tf
         └── user_data.sh
 ```
@@ -87,20 +87,10 @@ flowchart LR
   - VPC/Subnet/Route Tables/IGW/Security Groups
   - IAM Roles + Instance Profiles
   - EC2 instances + EIP
-- GitHub token with **minimum required scopes** to read the private repository used in bootstrap. (https://github.com/resilmesh2/Docker-Compose/)
 
 ---
 
 ## Configuration
-
-### GitHub Token
-
-To allow the EC2 instance to clone the private repository (`resilmesh2/Docker-Compose`) during the bootstrap phase, you need a **GitHub Personal Access Token (PAT)**.
-
-1.  Navigate to **GitHub Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)**.
-2.  Click **Generate new token (classic)**.
-3.  **Scopes:** Select the `repo` scope (Full control of private repositories).
-4.  **Save the token:** Copy the generated string immediately, you will need to paste it into your `pilot2.tfvars` file them.
 
 ### SSH Key Pair
 
@@ -136,10 +126,10 @@ This repo uses a **tfvars** file to keep environment-specific inputs together.
 
 ### Example: `envs/pilot2.tfvars.example` (template)
 
-> **Important:** do not commit real tokens/keys to git. Therefore, copy this file to the same path and name it `pilot2.tfvars`
+> **Important:** do not commit real keys to git. Therefore, copy this file to the same path and name it `pilot2.tfvars`
 
 ```hcl
-region  = "eu-south-2"
+region  = "eu-west-1"
 profile = "Resilmesh"
 
 # Public keys allowed to SSH into the instance as ubuntu
@@ -147,9 +137,6 @@ client_public_ssh_keys = [
   "ssh-ed25519 AAAA... user1",
   "ssh-ed25519 AAAA... user2",
 ]
-
-# GitHub token used by user_data to clone a private repo
-github_token = "ghp_xxxxxxxxxxxxxxx"
 
 # Source IPs allowed to access exposed service ports (CIDR /32 recommended)
 my_ips = [
@@ -163,7 +150,7 @@ my_ips = [
 Keeping configuration in `envs/pilot2.tfvars` helps you:
 - **Separate code from configuration** (same Terraform code can deploy different environments)
 - **Reproducibly control access** via `my_ips` (tight allowlist rather than open inbound)
-- **Rotate credentials easily** (e.g., change GitHub token or SSH keys without touching module code)
+- **Rotate credentials easily** (e.g., SSH keys without touching module code)
 - **Switch AWS target context** with `region` + `profile` (avoids accidental deployments to the wrong account/region)
 
 ---
@@ -237,5 +224,9 @@ terraform destroy -var-file "./envs/pilot2.tfvars"
   - Verify your public IP is present in `my_ips` (use `/32`).
   - Check that you are connecting to the **Elastic IP** from the Terraform output.
 - **Git clone fails in user_data**
-  - Confirm the GitHub token has access to the repo and is valid.
   - Review cloud-init logs: `/var/log/cloud-init-output.log`.
+- **Error when trying to enter via ssh**
+  - If you rebuilt the instance but did not do so with the EIP (the public IP remains the same), you will likely see a **Warning** window. In that case, use this command and then try logging in again:
+  ```bash
+    ssh-keygen -R <Public IP>
+  ```

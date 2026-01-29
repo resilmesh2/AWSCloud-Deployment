@@ -12,6 +12,7 @@ Both options converge on the same Docker Compose-based application stack.
 ## AWS Deployment (Terraform)
 
 Terraform codebase to provision a **minimal, security-conscious AWS footprint** for the **Resilmesh v2** environment.  
+[GitHub repository](https://github.com/resilmesh2/AWSCloud-Deployment)
 It deploys networking, IAM, and a single EC2 instance ready to run containers (Docker + Compose) and bootstrap an application stack via a Git clone.
 
 ### What Terraform Deploys
@@ -41,6 +42,13 @@ It deploys networking, IAM, and a single EC2 instance ready to run containers (D
 **Module:** `modules/ec2`
 
 * **Ubuntu 24.04 (Noble) AMI** (most recent) from Canonical owners
+* **Amazon EC2** m5.4xlarge instance:
+    * vCPUs: 16
+    * Memory: 64 GiB of RAM
+    * Storage: Optimised for EBS (Elastic Block Store) only
+    * Network Performance: Up to 10 Gbps
+    * Cost Considerations: 0.856 U$D per hour in Ireland region
+    This price may vary, to check the price at the time of launch, please use the [Official Amazon Website](https://aws.amazon.com/es/ec2/pricing/on-demand/)
 * **Single EC2 instance** (in the public subnet) with:
     * EBS optimized + detailed monitoring enabled
     * **Encrypted root volume** (gp3) sized to **1000 GiB**
@@ -49,7 +57,7 @@ It deploys networking, IAM, and a single EC2 instance ready to run containers (D
     * Disables SSH password authentication and root login
     * Installs Docker Engine + Docker Compose v2 plugin
     * Adds the provided client public SSH keys to `ubuntu`'s `authorized_keys`
-    * Clones `resilmesh2/Docker-Compose` with submodules using a GitHub token
+    * Clones [resilmesh2/Docker-Compose](https://github.com/resilmesh2/Docker-Compose/)
 
 ### Architecture
 
@@ -92,18 +100,8 @@ It deploys networking, IAM, and a single EC2 instance ready to run containers (D
     * VPC/Subnet/Route Tables/IGW/Security Groups
     * IAM Roles + Instance Profiles
     * EC2 instances + EIP
-* GitHub token with **minimum required scopes** to read the private repository used in bootstrap (`https://github.com/resilmesh2/Docker-Compose/`)
 
 ### Configuration
-
-#### GitHub Token
-
-To allow the EC2 instance to clone the private repository (`resilmesh2/Docker-Compose`) during the bootstrap phase, you need a **GitHub Personal Access Token (PAT)**.
-
-1. Navigate to **GitHub Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)**
-2. Click **Generate new token (classic)**
-3. **Scopes:** Select the `repo` scope (Full control of private repositories)
-4. **Save the token:** Copy the generated string immediately, you will need them
 
 #### SSH Key Pair
 
@@ -141,7 +139,7 @@ This repo uses a **tfvars** file to keep environment-specific inputs together.
 
 ##### Example: `envs/pilot2.tfvars.example`
 
-**Important:** do not commit real tokens/keys to git. Therefore, copy this file to the same path and name it `pilot2.tfvars`
+**Important:** do not commit real keys to git. Therefore, copy this file to the same path and name it `pilot2.tfvars`
 
 ```hcl
 region  = "eu-west-1"
@@ -153,9 +151,6 @@ client_public_ssh_keys = [
   "ssh-ed25519 AAAA... user1",
   "ssh-ed25519 AAAA... user2",
 ]
-
-# GitHub token used by user_data to clone a private repo
-github_token = "ghp_xxxxxxxxxxxxxxx"
 
 # Source IPs allowed to access exposed service ports (CIDR /32 recommended)
 my_ips = [
@@ -171,7 +166,7 @@ Keeping configuration in `envs/pilot2.tfvars` helps you:
 
 * **Separate code from configuration** (same Terraform code can deploy different environments)
 * **Reproducibly control access** via `my_ips` (tight allowlist rather than open inbound)
-* **Rotate credentials easily** (e.g., change GitHub token or SSH keys without touching module code)
+* **Rotate credentials easily** (e.g., change SSH keys without touching module code)
 * **Switch AWS target context** with `region` + `profile` (avoids accidental deployments to the wrong account/region)
 
 ### Deployment Steps
@@ -243,7 +238,6 @@ Ensure `profile` in your tfvars matches a configured AWS CLI profile.
 
 #### Git clone fails in user_data
 
-- Confirm the GitHub token has access to the repo and is valid
 - Review cloud-init logs: `/var/log/cloud-init-output.log`
 
 #### Error when trying to enter via ssh
@@ -266,7 +260,12 @@ This option allows you to deploy Resilmesh on a physical server or local virtual
 * **Operating System**: **Ubuntu 20.04 or higher** (Ubuntu 24.04 recommended).
 * **Privileges**: Sudo access to the server.
 * **Connectivity**: Active Internet connection to download packages and container images.
-* **Firewall Configuration**: If your environment is behind a firewall or uses Security Groups, the following **Inbound Rules** must be enabled:
+* **Domain Whitelisting**: Ensure the following domains are reachable for updates and image pulling:
+    * `github.com` | **TCP 443**
+    * `*.docker.io` | **TCP 443**
+    * `*.docker.com` | **TCP 443**
+    * `ghcr.io` | **TCP 443**
+* **Port Whitelisting**: Ensure that the following ports are accessible, as they are used to **expose Resilmesh services**. If you have a proxy to use, you will be prompted for it when you start the deployment script:
 
 | Service | Port | Description |
 | :--- | :--- | :--- |
@@ -295,12 +294,6 @@ This option allows you to deploy Resilmesh on a physical server or local virtual
 | **Wazuh Indexer** | 9201 | Wazuh Opensearch Service |
 | **MISP** | 10443 | Malware Information Sharing |
 | **NDR Server** | 31057 | NDR Internal Server |
-
-* **Domain Whitelisting**: Ensure the following domains are reachable for updates and image pulling:
-    * `github.com` | **TCP 443**
-    * `*.docker.io` | **TCP 443**
-    * `*.docker.com` | **TCP 443**
-    * `ghcr.io` | **TCP 443**
 
 ### Installing Docker and Docker Compose
 
@@ -365,26 +358,12 @@ All tests were performed using these versions:
   <img src="_static/docker_version.png" alt="Docker version" width="400">
 </p>
 
-### Obtaining a GitHub Token
-
-To clone the private repository, you need a GitHub token:
-
-1. Navigate to **GitHub Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)**
-2. Click **Generate new token (classic)**
-3. **Scopes:** Select the `repo` scope (Full control of private repositories)
-4. **Save the token:** Copy the generated token, you will use it in the next step
-
 ### Clone the Repository
 
-Use the following command, replacing `USER` with your GitHub username and `TOKEN` with the token you just generated:
+Use the following command in the path where you want the repository to be located:
 
 ```bash
-git clone https://USER:TOKEN@github.com/resilmesh2/Docker-Compose.git
-```
-
-**Example:**
-```bash
-git clone https://johnsmith:ghp_ABCdef123XYZ456@github.com/resilmesh2/Docker-Compose.git
+git clone --recurse-submodules https://github.com/resilmesh2/Docker-Compose.git
 ```
 
 After successfully cloning, navigate to the directory:

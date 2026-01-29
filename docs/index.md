@@ -12,8 +12,8 @@ Both options converge on the same Docker Compose-based application stack.
 ## AWS Deployment (Terraform)
 
 Terraform codebase to provision a **minimal, security-conscious AWS footprint** for the **Resilmesh v2** environment.  
-[GitHub repository](https://github.com/resilmesh2/AWSCloud-Deployment).
-It deploys networking, IAM, and a single EC2 instance ready to run containers (Docker + Compose) and bootstrap an application stack via a Git clone.
+It deploys networking, IAM, and a single EC2 instance ready to run containers (Docker + Compose) and bootstrap an application stack via a Git clone.  
+[GitHub repository](https://github.com/resilmesh2/AWSCloud-Deployment)  
 
 ### What Terraform Deploys
 

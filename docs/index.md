@@ -12,7 +12,7 @@ Both options converge on the same Docker Compose-based application stack.
 ## AWS Deployment (Terraform)
 
 Terraform codebase to provision a **minimal, security-conscious AWS footprint** for the **Resilmesh v2** environment.  
-[GitHub repository](https://github.com/resilmesh2/AWSCloud-Deployment)
+[GitHub repository](https://github.com/resilmesh2/AWSCloud-Deployment).
 It deploys networking, IAM, and a single EC2 instance ready to run containers (Docker + Compose) and bootstrap an application stack via a Git clone.
 
 ### What Terraform Deploys
@@ -42,7 +42,7 @@ It deploys networking, IAM, and a single EC2 instance ready to run containers (D
 **Module:** `modules/ec2`
 
 * **Ubuntu 24.04 (Noble) AMI** (most recent) from Canonical owners
-* **Amazon EC2** m5.4xlarge instance:
+* **Amazon EC2** `m5.4xlarge` instance:
     * vCPUs: 16
     * Memory: 64 GiB of RAM
     * Storage: Optimised for EBS (Elastic Block Store) only
@@ -53,11 +53,11 @@ It deploys networking, IAM, and a single EC2 instance ready to run containers (D
     * EBS optimized + detailed monitoring enabled
     * **Encrypted root volume** (gp3) sized to **1000 GiB**
     * **Elastic IP** attached to the instance
-* `user_data` bootstrap:
+* **user_data.sh** bootstrap:
     * Disables SSH password authentication and root login
     * Installs Docker Engine + Docker Compose v2 plugin
-    * Adds the provided client public SSH keys to `ubuntu`'s `authorized_keys`
-    * Clones [resilmesh2/Docker-Compose](https://github.com/resilmesh2/Docker-Compose/)
+    * Adds the provided client public SSH keys to `ubuntu/.ssh/authorized_keys`
+    * Clone [resilmesh2/Docker-Compose](https://github.com/resilmesh2/Docker-Compose/)
 
 ### Architecture
 
@@ -131,7 +131,7 @@ aws configure --profile Resilmesh
 ```
 
 3. **Enter Credentials:**
-   When prompted, provide your **Access Key ID**, **Secret Access Key**, and the target **Region** (e.g., `eu-south-2`).
+   When prompted, provide your **Access Key ID**, **Secret Access Key**, and the target **Region** (e.g., `eu-west-1`).
 
 #### Configuration File
 
@@ -265,7 +265,7 @@ This option allows you to deploy Resilmesh on a physical server or local virtual
     * `*.docker.io` | **TCP 443**
     * `*.docker.com` | **TCP 443**
     * `ghcr.io` | **TCP 443**
-* **Port Whitelisting**: Ensure that the following ports are accessible, as they are used to **expose Resilmesh services**. If you have a proxy to use, you will be prompted for it when you start the deployment script:
+* **Port Whitelisting**: Ensure that the following ports are accessible, as they are used to **expose Resilmesh services**. If you have a proxy to use, you will be prompted for it when you start the deployment script (`Docker-Compose/Scripts/init.sh`):
 
 | Service | Port | Description |
 | :--- | :--- | :--- |

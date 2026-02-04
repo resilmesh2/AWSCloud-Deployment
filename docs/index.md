@@ -265,6 +265,7 @@ This option allows you to deploy Resilmesh on a physical server or local virtual
     * `*.docker.io` | **TCP 443**
     * `*.docker.com` | **TCP 443**
     * `ghcr.io` | **TCP 443**
+    * `services.nvd.nist.gov` | **TCP 443**
 * **Port Whitelisting**: Ensure that the following ports are accessible, as they are used to **expose Resilmesh services**. If you have a proxy to use, you will be prompted for it when you start the deployment script (`Docker-Compose/Scripts/init.sh`):
 
 | Service | Port | Description |

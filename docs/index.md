@@ -385,7 +385,8 @@ First, make sure you have the keys you'll need:
 
 * **Aggregation Plane**: If your environment includes the deployment of the **Aggregation Plane**, a valid **SLP Enrichment API Key** is required prior to installation. If you do not have one, please contact **Maja Otic (motic@silentpush.com)**.
     * **Important Note**: If, for data privacy reasons, you cannot use the **SLP Enrichment** component and choose to perform private data enrichment instead, you must update the `API_URL` variable in the Enrichment's `.env.sample` file before launching the deployment. In such cases, it is recommended to review the **Vector** configuration information to ensure that the format used for data enrichment is correc.
-    Follow this README.md: [resilmesh2/Vector Datasets not in ECS formmat](https://github.com/resilmesh2/Vector/tree/d6ce622eaae9be7084e342f99e98fe376a3cfc52?tab=readme-ov-file#if-the-datasets-are-not-in-ecs-format) or follow this example: [Bypass Enrichment Guide](assets/BypassEnrichmentGuide.pdf).
+        * **Follow this README.md**: [resilmesh2/Vector Datasets not in ECS formmat](https://github.com/resilmesh2/Vector/tree/d6ce622eaae9be7084e342f99e98fe376a3cfc52?tab=readme-ov-file#if-the-datasets-are-not-in-ecs-format)
+        * **Follow this example**: [Bypass Enrichment Guide](assets/BypassEnrichmentGuide.pdf).
 
 * **Threat Awareness Plane**: If your environment deploys the **Threat Awareness Plane**, specifically the **Threat Hunting and Forensics (THF)** module, please note it consists of two core components:
     * **DFIR**: Requires the corresponding API keys for the LLM models to be utilized (e.g., **Alias, Anthropic Claude 4 Sonnet, Ollama**, or others).

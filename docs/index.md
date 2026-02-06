@@ -455,6 +455,7 @@ Once the script execution is complete, the `Docker-Compose/Scripts/output_summar
 To monitor the health and performance of the Resilmesh infrastructure, we use a Docker-based monitoring stack.
 
 This solution integrates the following tools:
+
 * **Prometheus:** Metrics collection and storage.
 * **Grafana:** Data visualization via dashboards.
 * **Node Exporter:** Server/Host hardware metrics.

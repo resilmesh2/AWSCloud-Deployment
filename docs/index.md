@@ -452,8 +452,7 @@ Once the script execution is complete, the `Docker-Compose/Scripts/output_summar
 
 ### Monitoring & Observability
 
-To monitor the health and performance of the Resilmesh infrastructure, we use a Docker-based monitoring stack.
-
+To monitor the health and performance of the Resilmesh infrastructure, we use a Docker-based monitoring stack. 
 This solution integrates the following tools:
 
 * **Prometheus:** Metrics collection and storage.

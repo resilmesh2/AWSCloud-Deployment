@@ -450,6 +450,21 @@ Depending on your configuration, services will be available at:
 
 Once the script execution is complete, the `Docker-Compose/Scripts/output_summary.txt` file will be generated, which contains all the paths and ports for accessing the exposed services.
 
+### Accessing the Services
+
+### Monitoring & Observability
+
+To monitor the health and performance of the Resilmesh infrastructure, we use a Docker-based monitoring stack.
+
+This solution integrates the following tools:
+* **Prometheus:** Metrics collection and storage.
+* **Grafana:** Data visualization via dashboards.
+* **Node Exporter:** Server/Host hardware metrics.
+* **cAdvisor:** Container performance metrics.
+
+You can consult the complete deployment guide, which includes configuration files (`prometheus.yml`, `docker-compose.yml`) and recommended dashboard IDs, in the following document:
+
+<a href="assets/MonitoringStackGuide.pdf" target="_blank">📄 Open Monitoring Guide (PDF)</a>
 
 ### Troubleshooting
 

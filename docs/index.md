@@ -450,8 +450,6 @@ Depending on your configuration, services will be available at:
 
 Once the script execution is complete, the `Docker-Compose/Scripts/output_summary.txt` file will be generated, which contains all the paths and ports for accessing the exposed services.
 
-### Accessing the Services
-
 ### Monitoring & Observability
 
 To monitor the health and performance of the Resilmesh infrastructure, we use a Docker-based monitoring stack.

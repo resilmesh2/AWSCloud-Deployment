@@ -30,7 +30,7 @@ It deploys networking, IAM, and a single EC2 instance ready to run containers (D
     * Ingress opens a curated set of TCP ports (SSH, HTTP/HTTPS, and service ports) **only** to the allowed IPs
     * Egress open to `0.0.0.0/0`
 
-#### IAM
+#### IAM 
 
 **Module:** `modules/iam`
 

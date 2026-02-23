@@ -461,9 +461,9 @@ This solution integrates the following tools:
 * **Node Exporter:** Server/Host hardware metrics.
 * **cAdvisor:** Container performance metrics.
 
-You can consult the complete deployment guide, which includes configuration files (`prometheus.yml`, `docker-compose.yml`) and recommended dashboard IDs, in the following document:
+You can consult the complete deployment guide, which includes configuration files (`prometheus.yml`, `docker-compose.yml`) and recommended dashboard IDs, in the following readme file:
 
-<a href="assets/MonitoringStackGuide.pdf" target="_blank">📄 Open Monitoring Guide (PDF)</a>
+[Monitoring Repository](https://github.com/resilmesh2/Grafana_Prometheus_Monitoring)
 
 ### Troubleshooting
 

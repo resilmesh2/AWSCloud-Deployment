@@ -4,7 +4,7 @@ Terraform codebase to provision a **minimal, security-conscious AWS footprint** 
 It deploys networking, IAM, and a single EC2 instance ready to run containers (Docker + Compose) and bootstrap an application stack via a Git clone.
 
 ---
- 
+
 ## What this deploys
 
 ### Networking (`modules/network`)

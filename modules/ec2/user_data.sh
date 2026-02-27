@@ -74,10 +74,10 @@ echo "=== Cloning Docker Compose repository ==="
 # Clone repo with submodules as ubuntu
 sudo -u ubuntu -H bash -c "
   cd /home/ubuntu/ &&
-  git clone --recurse-submodules https://github.com/resilmesh2/Docker-Compose.git
-  cd Docker-Compose
-  LATEST_STABLE_TAG=$(git tag -l "v[0-9]*.0.0" --sort=-v:refname | head -n1)
-  git checkout $LATEST_STABLE_TAG
+  git clone --recurse-submodules https://github.com/resilmesh2/Docker-Compose.git &&
+  cd Docker-Compose &&
+  LATEST_STABLE_TAG=$(git tag -l "v[0-9]*.0.0" --sort=-v:refname | head -n1) &&
+  git checkout $LATEST_STABLE_TAG &&
   git submodule update --init --recursive
 "
 

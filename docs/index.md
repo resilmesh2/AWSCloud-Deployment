@@ -1,6 +1,6 @@
-# Resilmesh v2 - Deployment Guide
+# Resilmesh v2.1 - Deployment Guide
 
-This documentation covers two deployment options for the **Resilmesh v2** environment:
+This documentation covers two deployment options for the **Resilmesh v2.1** environment:
 
 1. **AWS Deployment (Terraform)** – Automated cloud infrastructure
 2. **Local Deployment (On-Premise)** – Physical server or local VM
@@ -11,7 +11,7 @@ Both options converge on the same Docker Compose-based application stack.
 
 ## AWS Deployment (Terraform)
 
-Terraform codebase to provision a **minimal, security-conscious AWS footprint** for the **Resilmesh v2** environment.  
+Terraform codebase to provision a **minimal, security-conscious AWS footprint** for the **Resilmesh v2.1** environment.  
 It deploys networking, IAM, and a single EC2 instance ready to run containers (Docker + Compose) and bootstrap an application stack via a Git clone.  
 [GitHub repository](https://github.com/resilmesh2/AWSCloud-Deployment)  
 
@@ -379,7 +379,7 @@ cd Docker-Compose
 
 **This section applies to both AWS and On-Premise deployments.**
 
-### API Key Collection for Resilmesh Platform v2 Environment
+### API Key Collection for Resilmesh Platform v2.1 Environment
 
 First, make sure you have the keys you'll need:
 

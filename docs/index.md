@@ -503,11 +503,13 @@ sudo systemctl restart docker
 
 ## Managing the Releases
 
-### If the script init_releases.sh is not present in:
+### Execution if the script init_releases.sh is present 
 
-`Docker-compose/Scripts/`
+* Check in `Docker-compose/Scripts/` if **init_releases.sh** is present and from this path execute it `./init_releases.sh` 
 
-you must manually execute its commands once to properly initialize the update system.
+### Execution if the script init_releases.sh is not present
+
+* Check in `Docker-compose/Scripts/` if **init_releases.sh** is not present and from this path you must manually execute its commands once to properly initialize the update system.
 
 ▶️ **Manual Initialization Steps**
 

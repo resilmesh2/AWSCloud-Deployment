@@ -20,7 +20,7 @@ variable "ubuntu_owners"   {
 } 
 variable "tags" {
     type = map(string)
-    default = { Project="RESILMESH", Environment="Pilot2" }
+    default = { Project="RESILMESH2", Environment="Pilot2" }
 }
 variable "vpc_cidr"        {
     type = string

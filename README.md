@@ -1,10 +1,10 @@
-# Resilmesh v2 – Terraform (AWS)
+# Resilmesh v2 – Terraform (AWS) 
 
 Terraform codebase to provision a **minimal, security-conscious AWS footprint** for the **Resilmesh v2** environment.  
 It deploys networking, IAM, and a single EC2 instance ready to run containers (Docker + Compose) and bootstrap an application stack via a Git clone.
 
 ---
-
+ 
 ## What this deploys
 
 ### Networking (`modules/network`)

@@ -425,6 +425,10 @@ In addition to the deployment files, a specific utility script has been develope
     * **Use Case**: This script is executed inside `init.sh` but it can be executed separately if a manual or systemic error occurs during or after deployment, or if configuration errors are detected in the deployed components. It serves as a necessary cleanup mechanism to ensure a clean slate for redeployment.
     * **Description**: Contains the logic to reverse the component deployments, ensuring all residual artifacts, network configurations, and containers are successfully removed.
 
+* **init_releases.sh**: This Bash script is a lightweight update trigger designed to ensure that the latest version of the update management scripts is executed.
+
+* **releases.sh**: This Bash script acts as an update and deployment manager for the ResilMesh platform, orchestrating version upgrades, component configuration, and selective service redeployment based on the target environment. 
+
 ### Start the Resilmesh deployment script
 - First of all, log in to Docker with your account
 ```bash
@@ -496,6 +500,46 @@ sudo nano /etc/docker/daemon.json
 sudo systemctl restart docker
 ```
 
+
+## Managing the Releases
+
+### If the script init_releases.sh is not present in:
+
+`Docker-compose/Scripts/`
+
+you must manually execute its commands once to properly initialize the update system.
+
+▶️ **Manual Initialization Steps**
+
+Run the following commands from within the Docker-compose/Scripts/ directory:
+```bash
+git fetch --tags -q
+git -C ".." checkout origin/main -- Scripts/
+./releases.sh
+```
+The ResilMesh platform includes two helper scripts to simplify the update and deployment process:
+
+#### init_releases.sh
+This script acts as a bootstrapper for the update process:
+
+* Fetches the latest Git tags from the remote repository
+* Updates the local Scripts/ directory from the main branch
+* Executes the main update script **(releases.sh)**
+
+Its purpose is to ensure that the update logic is always up to date before execution.
+
+
+#### releases.sh
+This is the main update manager script, responsible for:
+
+* Checking the current vs latest platform version
+* Allowing the user to select a target deployment environment
+* Updating only the required components
+* Applying environment-specific configuration (e.g., IP handling)
+* Rebuilding and redeploying the necessary Docker services
+
+It provides a controlled, environment-aware update process for the platform.
+
 ---
 
 ## Support
@@ -508,4 +552,4 @@ For issues or questions:
 
 ---
 
-**Documentation updated:** January 2026
+**Documentation updated:** March 2026

@@ -1,6 +1,6 @@
-# Resilmesh v2.1 - Deployment Guide
+# Resilmesh v2.2 - Deployment Guide
 
-This documentation covers two deployment options for the **Resilmesh v2.1** environment:
+This documentation covers two deployment options for the **Resilmesh v2.2** environment:
 
 1. **AWS Deployment (Terraform)** – Automated cloud infrastructure
 2. **Local Deployment (On-Premise)** – Physical server or local VM
@@ -542,6 +542,13 @@ This is the main update manager script, responsible for:
 
 It provides a controlled, environment-aware update process for the platform.
 
+#### Upcomming changes in v2.2.0 vs previous versions
+In this version, minor changes have been applied:
+
+* NDR: Minor fix of NATS integration & disable Online mode on Deep Packet Inspection tab.
+* Landing Page: New url added for Resilmesh Docs section.
+* MISP Server: New SMTP docker image deployed. EOL for previous image 
+
 ---
 
 ## Support
@@ -554,4 +561,4 @@ For issues or questions:
 
 ---
 
-**Documentation updated:** March 2026
+**Documentation updated:** May 2026

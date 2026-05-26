@@ -11,7 +11,7 @@ Both options converge on the same Docker Compose-based application stack.
 
 ## AWS Deployment (Terraform)
 
-Terraform codebase to provision a **minimal, security-conscious AWS footprint** for the **Resilmesh v2.1** environment.  
+Terraform codebase to provision a **minimal, security-conscious AWS footprint** for the **Resilmesh v2.2** environment.  
 It deploys networking, IAM, and a single EC2 instance ready to run containers (Docker + Compose) and bootstrap an application stack via a Git clone.  
 [GitHub repository](https://github.com/resilmesh2/AWSCloud-Deployment)  
 
@@ -379,7 +379,7 @@ cd Docker-Compose
 
 **This section applies to both AWS and On-Premise deployments.**
 
-### API Key Collection for Resilmesh Platform v2.1 Environment
+### API Key Collection for Resilmesh Platform v2.2 Environment
 
 First, make sure you have the keys you'll need:
 

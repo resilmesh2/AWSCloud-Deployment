@@ -542,7 +542,7 @@ This is the main update manager script, responsible for:
 
 It provides a controlled, environment-aware update process for the platform.
 
-#### Upcomming changes in v2.2.0 vs previous versions
+### Upcomming changes in v2.2.0 vs previous versions
 In this version, minor changes have been applied:
 
 * NDR: Minor fix of NATS integration & disable Online mode on Deep Packet Inspection tab.

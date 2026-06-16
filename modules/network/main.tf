@@ -48,6 +48,7 @@ locals {
         iob_stix            = 3400
         shuffle             = 3443
         graphql1            = 4001
+        graphqlnginx        = 4443
         sacd                = 4200
         nse_front           = 4201
         wazuh               = 4433
